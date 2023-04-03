@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
-                  child: const Text('Click here'),
+                  child: const Text('Click This button'),
                   onPressed: () {
                     Navigator.push(
                       context,
