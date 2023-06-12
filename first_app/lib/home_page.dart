@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
-                          Text("VIVA",
+                          Text("EVA",
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 40)),

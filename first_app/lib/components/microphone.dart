@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
   const ShapeScreen({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class _ShapeScreenState extends State<ShapeScreen>
     with TickerProviderStateMixin {
   /// when playing, animation will be played
   bool playing = false;
+  var rec = Rec();
 
   /// animation controller for the play pause button
   late AnimationController _playPauseAnimationController;
@@ -204,7 +206,7 @@ class _ShapeScreenState extends State<ShapeScreen>
             GestureDetector(
               onTap: () {
                 playing = !playing;
-
+                startReording();
                 if (playing) {
                   _playPauseAnimationController.forward();
                   _topBottomAnimationController.forward();
@@ -239,6 +241,11 @@ class _ShapeScreenState extends State<ShapeScreen>
         ),
       ),
     );
+  }
+
+  void startReording() {
+    print("here");
+    rec.recordMic();
   }
 }
 
