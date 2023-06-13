@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
@@ -43,31 +44,44 @@ class Rec {
           contents = await File(recording!.path!).readAsBytes();
           var url = Uri.parse(
               "https://api-inference.huggingface.co/models/openai/whisper-large-v2");
-          var res = await http.post(url,
+          var whisperRes = await http.post(url,
               headers: {
                 "Authorization": "Bearer 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"
               },
               body: contents);
-          print(res.body);
+          print(whisperRes.body);
+          var resultBody = jsonDecode(whisperRes.body);
+          var text = resultBody['text'] ?? '_';
+          print(text);
+          if (text != '_') {
+            var bartUrl = Uri.parse(
+                "https://api-inference.huggingface.co/models/facebook/bart-large-mnli");
+            // var textaudio = "Where is the principal";
+            var intents = '["location", "principal", "time", "student"]';
+            var payloadRaw = {
+              "inputs": "$text",
+              "parameters": {
+                "candidate_labels": ["location", "principal", "time", "student"]
+              }
+            };
+            var payload = jsonEncode(payloadRaw);
+            print(payload);
+            var bartRes = await http.post(bartUrl,
+                headers: {
+                  "Authorization":
+                      "Bearer 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"
+                },
+                body: payload);
+
+            print(bartRes.body);
+          }
+        } else {
+          print("Whisper is unavailable");
         }
-
-        var bartUrl = Uri.parse(
-            "https://api-inference.huggingface.co/models/facebook/bart-large-mnli");
-        var textaudio = "Where is the principal";
-        var intents = '["location", "principal", "time", "student"]';
-
-        // var result = await http.post(bartUrl,
-        //     headers: {
-        //       "Authorization": "Bearer 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"
-        //     },
-        //     body:
-        //         '{"input": $textaudio, "parameters": {"candidate_labels": ["location", "principal", "time", "student"]} }');
-        //
-        // print(res.body);
-        // }
-        // bool nowRecording = await record.isRecording();
-        // print(nowRecording);
       }
+
+      // bool nowRecording = await record.isRecording();
+      // print(nowRecording);
     }
   }
 }
