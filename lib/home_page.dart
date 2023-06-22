@@ -1,6 +1,6 @@
 import 'package:first_app/components/microphone.dart';
 import 'package:flutter/material.dart';
-import 'submain page.dart';
+import 'submain_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,11 +19,11 @@ class HomePage extends StatelessWidget {
               Container(
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 150, left: 40),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 150, left: 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Text("EVA",
                               textAlign: TextAlign.left,
                               style: TextStyle(
