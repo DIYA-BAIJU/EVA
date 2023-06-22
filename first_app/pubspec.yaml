@@ -39,6 +39,7 @@ dependencies:
   record: ^4.4.4
   path_provider: ^2.0.15
   http: ^1.0.0
+  flutter_audio_recorder2: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,18 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Roboto Light
+      fonts:
+        - asset: fonts/roboto-light.ttf
+
+    - family: Rubik Medium
+      fonts:
+        - asset: fonts/rubik-medium.ttf
+
+    - family: Rubik Bold
+      fonts:
+        - asset: fonts/rubik-bold.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

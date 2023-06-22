@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../answer_page.dart';
 import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
@@ -59,6 +60,7 @@ class _ShapeScreenState extends State<ShapeScreen>
         _topBottomAnimationController.forward();
       }
     });
+    rec.initRecorder();
   }
 
   @override
@@ -245,7 +247,9 @@ class _ShapeScreenState extends State<ShapeScreen>
 
   void startReording() {
     print("here");
-    rec.recordMic();
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AnswerPage()));
+    // rec.recordMic();
   }
 }
 

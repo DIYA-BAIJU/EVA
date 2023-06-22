@@ -1,6 +1,6 @@
 import 'package:first_app/components/microphone.dart';
 import 'package:flutter/material.dart';
-import 'submain page.dart';
+import 'submain_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,24 +19,29 @@ class HomePage extends StatelessWidget {
               Container(
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 150, left: 40),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 150, left: 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text("EVA",
                               textAlign: TextAlign.left,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 40)),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 40,
+                                  fontFamily: "Rubik Medium")),
                           Text(
                             "Voice Integrated Virtual",
                             textAlign: TextAlign.left,
-                            style: TextStyle(fontSize: 35),
+                            style: TextStyle(
+                                fontSize: 35, fontFamily: "Roboto Light"),
                           ),
                           Text(
                             "Assistant",
                             textAlign: TextAlign.left,
-                            style: TextStyle(fontSize: 35),
+                            style: TextStyle(
+                                fontSize: 35, fontFamily: "Roboto Light"),
                           ),
                         ],
                       ),
@@ -61,19 +66,6 @@ class HomePage extends StatelessWidget {
                     //
                     //   ))
                   ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ElevatedButton(
-                  child: const Text('Click here'),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SubmainPage()),
-                    ); // Navigate to second route when tapped.
-                  },
                 ),
               ),
             ]),

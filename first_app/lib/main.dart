@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'submain page.dart';
+import 'submain_page.dart';
 import 'home_page.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'EVA',
       theme: ThemeData(brightness: Brightness.dark),
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-      
+
 //     );
 //   }
 // }
