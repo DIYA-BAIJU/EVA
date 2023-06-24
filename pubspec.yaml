@@ -40,7 +40,7 @@ dependencies:
   path_provider: ^2.0.15
   http: ^1.0.0
   flutter_audio_recorder2: ^0.0.2
-
+  get: ^4.6.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -86,6 +86,10 @@ flutter:
     - family: Roboto Light
       fonts:
         - asset: fonts/roboto_light.ttf
+
+    - family: Rubik Bold
+      fonts:
+        - asset: fonts/rubik_bold.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

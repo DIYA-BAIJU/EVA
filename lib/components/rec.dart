@@ -3,9 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:record/record.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 
 class Rec {
   bool _isRec = false;

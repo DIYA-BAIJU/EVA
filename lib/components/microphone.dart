@@ -1,9 +1,12 @@
+import 'package:first_app/controllers/controllers.dart';
 import 'package:flutter/material.dart';
-import '../answer_page.dart';
+import '../pages/answer_page.dart';
 import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
-  const ShapeScreen({Key? key}) : super(key: key);
+  const ShapeScreen({Key? key, required this.homeController}) : super(key: key);
+
+  final HomeController homeController;
 
   @override
   State<ShapeScreen> createState() => _ShapeScreenState();
@@ -77,7 +80,7 @@ class _ShapeScreenState extends State<ShapeScreen>
     double height = 200;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 150, left: 300),
+      padding: const EdgeInsets.only(top: 150, left: 50),
       child: Center(
         child: Stack(
           clipBehavior: Clip.none,
@@ -208,6 +211,7 @@ class _ShapeScreenState extends State<ShapeScreen>
             GestureDetector(
               onTap: () {
                 playing = !playing;
+                widget.homeController.updateRecordingStatus(playing);
                 startReording();
                 if (playing) {
                   _playPauseAnimationController.forward();
@@ -247,9 +251,9 @@ class _ShapeScreenState extends State<ShapeScreen>
 
   void startReording() {
     print("here");
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AnswerPage()));
-    // rec.recordMic();
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => AnswerPage()));
+    rec.recordMic();
   }
 }
 

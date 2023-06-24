@@ -1,6 +1,5 @@
+import 'package:first_app/pages/pages.dart';
 import 'package:flutter/material.dart';
-import 'submain_page.dart';
-import 'home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'EVA',
       theme: ThemeData(brightness: Brightness.dark),
-      home: const HomePage(),
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
