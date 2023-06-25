@@ -5,7 +5,6 @@ import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
   const ShapeScreen({Key? key, required this.homeController}) : super(key: key);
-
   final HomeController homeController;
 
   @override
@@ -16,7 +15,7 @@ class _ShapeScreenState extends State<ShapeScreen>
     with TickerProviderStateMixin {
   /// when playing, animation will be played
   bool playing = false;
-  var rec = Rec();
+  late final Rec rec;
 
   /// animation controller for the play pause button
   late AnimationController _playPauseAnimationController;
@@ -32,6 +31,8 @@ class _ShapeScreenState extends State<ShapeScreen>
   @override
   void initState() {
     super.initState();
+    rec = Rec(homeController: widget.homeController);
+    rec.initRecorder();
     _playPauseAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
 
@@ -63,7 +64,6 @@ class _ShapeScreenState extends State<ShapeScreen>
         _topBottomAnimationController.forward();
       }
     });
-    rec.initRecorder();
   }
 
   @override
@@ -251,9 +251,12 @@ class _ShapeScreenState extends State<ShapeScreen>
 
   void startReording() {
     print("here");
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => AnswerPage()));
     rec.recordMic();
+    if (widget.homeController.isQueryReady.value == true) {}
+    if (widget.homeController.isAnswerReady.value == true) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AnswerPage()));
+    }
   }
 }
 

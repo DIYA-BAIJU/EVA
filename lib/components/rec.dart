@@ -1,11 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:first_app/controllers/controllers.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
+import 'bart_payload.dart';
+
 class Rec {
+  Rec({required this.homeController});
+
+  final HomeController homeController;
   bool _isRec = false;
   late Uint8List contents;
   late final FlutterAudioRecorder2 recorder;
@@ -33,6 +39,8 @@ class Rec {
       if (_isRec) {
         print("Recording");
         await recorder.start();
+        homeController.updateIsQueryReady(false);
+        homeController.isAnswerReady(false);
         //print('tempPath/myFile.m4a');
       }
       if (!_isRec) {
@@ -53,6 +61,7 @@ class Rec {
           var text = resultBody['text'] ?? '_';
           print(text);
           if (text != '_') {
+            homeController.updateUserPrompt(text);
             var bartUrl = Uri.parse(
                 "https://api-inference.huggingface.co/models/facebook/bart-large-mnli");
             // var textaudio = "Where is the principal";
@@ -73,6 +82,12 @@ class Rec {
                 body: payload);
 
             print(bartRes.body);
+            var bartpayload = BartPayload.fromJson(jsonDecode(bartRes.body));
+            var intentRes = bartpayload.labels;
+            print(intentRes);
+            if (intentRes != null) {
+              homeController.updateIntents(intentRes.sublist(0, 2));
+            }
           }
         } else {
           print("Whisper is unavailable");
