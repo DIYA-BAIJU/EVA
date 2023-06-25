@@ -6,7 +6,7 @@ import '../controllers/controllers.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  HomeController homeController = HomeController();
+  HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +65,9 @@ class HomePage extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 20.0, left: 50),
-                            child: Obx(() => Text(
-                                homeController.isRecording.value
+                            child: Obx(() => homeController.isQueryReady.value
+                                ? Image.asset("assets/loading.gif")
+                                : Text(homeController.isRecording.value
                                     ? "Speak Now"
                                     : "")),
                           ),
