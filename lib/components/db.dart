@@ -1,0 +1,1 @@
+class DB_Module {}
