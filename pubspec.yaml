@@ -41,6 +41,8 @@ dependencies:
   http: ^1.0.0
   flutter_audio_recorder2: ^0.0.2
   get: ^4.6.5
+  sqflite: ^2.2.8+4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

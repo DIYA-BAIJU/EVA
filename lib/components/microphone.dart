@@ -1,11 +1,14 @@
+import 'package:first_app/components/db.dart';
 import 'package:first_app/controllers/controllers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../pages/answer_page.dart';
 import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
-  const ShapeScreen({Key? key, required this.homeController}) : super(key: key);
+  ShapeScreen({Key? key, required this.homeController}) : super(key: key);
   final HomeController homeController;
+  final DbModule dbModule = DbModule();
 
   @override
   State<ShapeScreen> createState() => _ShapeScreenState();
@@ -31,7 +34,7 @@ class _ShapeScreenState extends State<ShapeScreen>
   @override
   void initState() {
     super.initState();
-    rec = Rec(homeController: widget.homeController);
+    rec = Rec();
     rec.initRecorder();
     _playPauseAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
@@ -80,7 +83,7 @@ class _ShapeScreenState extends State<ShapeScreen>
     double height = 200;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 150, left: 50),
+      padding: const EdgeInsets.only(top: 100, left: 50),
       child: Center(
         child: Stack(
           clipBehavior: Clip.none,
@@ -212,6 +215,7 @@ class _ShapeScreenState extends State<ShapeScreen>
               onTap: () {
                 playing = !playing;
                 widget.homeController.updateRecordingStatus(playing);
+                widget.homeController.updateIsQueryReady(true);
                 startReording();
                 if (playing) {
                   _playPauseAnimationController.forward();
@@ -236,11 +240,7 @@ class _ShapeScreenState extends State<ShapeScreen>
                   color: Colors.transparent,
                   shape: BoxShape.circle,
                 ),
-                child: Column(
-                  children: [
-                    Image(image: AssetImage("assets/mic_icon.png")),
-                  ],
-                ),
+                child: Image(image: AssetImage("assets/mic_icon.png")),
               ),
             ),
           ],
@@ -249,10 +249,13 @@ class _ShapeScreenState extends State<ShapeScreen>
     );
   }
 
-  void startReording() {
+  void startReording() async {
     print("here");
-    rec.recordMic();
-    if (widget.homeController.isQueryReady.value == true) {}
+    await rec.recordMic();
+    widget.homeController.updateIsQueryReady(false);
+    // if (widget.homeController.isQueryReady.value == true) {
+    //   widget.dbModule.testDB();
+    // }
     if (widget.homeController.isAnswerReady.value == true) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AnswerPage()));
