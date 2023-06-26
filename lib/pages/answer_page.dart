@@ -1,4 +1,5 @@
 import 'package:first_app/controllers/controllers.dart';
+import 'package:first_app/helpers/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class AnswerPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Row(
           children: [
-            const Expanded(
+            Expanded(
               flex: 11,
               child: SizedBox(
                 child: Padding(
@@ -31,16 +32,25 @@ class AnswerPage extends StatelessWidget {
                       Text("EVA",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Logo_Answer,
+                              fontFamily: "Rubik Bold")),
                       Text(
-                        "Voice Integrated Virtual",
+                        "Educational Virtual",
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Logo_Answer,
+                            fontFamily: "Roboto Light"),
                       ),
                       Text(
                         "Assistant",
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Logo_Answer,
+                            fontFamily: "Roboto Light"),
                       ),
                       SizedBox(
                         height: 140,
@@ -71,14 +81,18 @@ class AnswerPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 30),
+                        padding: EdgeInsets.only(top: 30, bottom: 10),
                         child: Text(homeController.userPrompt.value,
                             style: TextStyle(
-                              fontFamily: "Roboto Light",
-                              fontSize: 31,
-                            )),
+                                fontFamily: "Roboto Light",
+                                fontSize: 31,
+                                color: Colors.grey)),
                       ),
-                      Text(homeController.answer.value),
+                      Text(homeController.answer.value,
+                          style: TextStyle(
+                            fontFamily: "Roboto Light",
+                            fontSize: 18,
+                          )),
                     ],
                   ),
                 ),
