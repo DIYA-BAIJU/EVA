@@ -94,6 +94,12 @@ class Rec {
                 body: payload);
 
             print(bartRes.body);
+            Map<String, dynamic> bartBody = jsonDecode(bartRes.body);
+            if (bartBody.containsKey('error')) {
+              print("Bart Error");
+              await dbModule.testDB();
+              return;
+            }
             var bartpayload = BartPayload.fromJson(jsonDecode(bartRes.body));
             var intentRes = bartpayload.labels;
             print(intentRes);

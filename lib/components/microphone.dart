@@ -6,8 +6,7 @@ import '../pages/answer_page.dart';
 import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
-  ShapeScreen({Key? key, required this.homeController}) : super(key: key);
-  final HomeController homeController;
+  ShapeScreen({Key? key}) : super(key: key);
   final DbModule dbModule = DbModule();
 
   @override
@@ -17,6 +16,7 @@ class ShapeScreen extends StatefulWidget {
 class _ShapeScreenState extends State<ShapeScreen>
     with TickerProviderStateMixin {
   /// when playing, animation will be played
+  final HomeController homeController = Get.find();
   bool playing = false;
   late final Rec rec;
 
@@ -214,8 +214,8 @@ class _ShapeScreenState extends State<ShapeScreen>
             GestureDetector(
               onTap: () {
                 playing = !playing;
-                widget.homeController.updateRecordingStatus(playing);
-                widget.homeController.updateIsQueryReady(true);
+                homeController.updateRecordingStatus(playing);
+                homeController.updateIsQueryReady(true);
                 startReording();
                 if (playing) {
                   _playPauseAnimationController.forward();
@@ -252,11 +252,13 @@ class _ShapeScreenState extends State<ShapeScreen>
   void startReording() async {
     print("here");
     await rec.recordMic();
-    widget.homeController.updateIsQueryReady(false);
+    homeController.updateIsQueryReady(false);
     // if (widget.homeController.isQueryReady.value == true) {
     //   widget.dbModule.testDB();
     // }
-    if (widget.homeController.isAnswerReady.value == true) {
+    print(homeController.isAnswerReady.value);
+    if (homeController.isAnswerReady.value == true) {
+      print("Answer is ready");
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AnswerPage()));
     }

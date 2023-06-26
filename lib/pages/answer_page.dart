@@ -1,8 +1,12 @@
+import 'package:first_app/controllers/controllers.dart';
+import 'package:first_app/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AnswerPage extends StatelessWidget {
-  const AnswerPage({Key? key}) : super(key: key);
+  AnswerPage({Key? key}) : super(key: key);
 
+  HomeController homeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +20,7 @@ class AnswerPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Row(
           children: [
-            const Expanded(
+            Expanded(
               flex: 11,
               child: SizedBox(
                 child: Padding(
@@ -28,16 +32,25 @@ class AnswerPage extends StatelessWidget {
                       Text("EVA",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 30)),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Logo_Answer,
+                              fontFamily: "Rubik Bold")),
                       Text(
-                        "Voice Integrated Virtual",
+                        "Educational Virtual",
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Logo_Answer,
+                            fontFamily: "Roboto Light"),
                       ),
                       Text(
                         "Assistant",
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Logo_Answer,
+                            fontFamily: "Roboto Light"),
                       ),
                       SizedBox(
                         height: 140,
@@ -62,20 +75,24 @@ class AnswerPage extends StatelessWidget {
                     colors: [Color(0xff301356), Color(0xff161225)],
                   ),
                 ),
-                child: const Padding(
+                child: Padding(
                   padding:
                       EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 30),
-                        child: Text("Sample Question",
+                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        child: Text(homeController.userPrompt.value,
                             style: TextStyle(
-                              fontFamily: "Roboto Light",
-                              fontSize: 31,
-                            )),
+                                fontFamily: "Poppins Light",
+                                fontSize: 31,
+                                color: Colors.grey)),
                       ),
-                      Text("Sample Answer"),
+                      Text(homeController.answer.value,
+                          style: TextStyle(
+                            fontFamily: "Poppins Light",
+                            fontSize: 18,
+                          )),
                     ],
                   ),
                 ),
