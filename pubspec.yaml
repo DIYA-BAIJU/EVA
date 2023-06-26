@@ -92,6 +92,10 @@ flutter:
     - family: Rubik Bold
       fonts:
         - asset: fonts/rubik_bold.ttf
+
+    - family: Poppins Light
+      fonts:
+        - asset: fonts/poppins-light.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

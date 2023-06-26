@@ -84,13 +84,13 @@ class AnswerPage extends StatelessWidget {
                         padding: EdgeInsets.only(top: 30, bottom: 10),
                         child: Text(homeController.userPrompt.value,
                             style: TextStyle(
-                                fontFamily: "Roboto Light",
+                                fontFamily: "Poppins Light",
                                 fontSize: 31,
                                 color: Colors.grey)),
                       ),
                       Text(homeController.answer.value,
                           style: TextStyle(
-                            fontFamily: "Roboto Light",
+                            fontFamily: "Poppins Light",
                             fontSize: 18,
                           )),
                     ],
