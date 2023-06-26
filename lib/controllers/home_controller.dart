@@ -4,6 +4,7 @@ class HomeController extends GetxController {
   RxBool isRecording = false.obs;
   RxString userPrompt = "".obs;
   RxList<String> intents = <String>[].obs;
+  RxString answer = "".obs;
   RxBool isQueryReady = false.obs;
   RxBool isAnswerReady = false.obs;
 
@@ -28,7 +29,13 @@ class HomeController extends GetxController {
     update();
   }
 
-  updateIsAnswerReady(bool value) {
-    isAnswerReady.value = false;
+  Future<void> updateIsAnswerReady(bool value) async {
+    isAnswerReady.value = value;
+    print("answer ready: ${isAnswerReady.value}");
+  }
+
+  updateAnswer(String value) {
+    answer.value = value;
+    update();
   }
 }

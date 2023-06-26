@@ -1,13 +1,17 @@
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../controllers/controllers.dart';
 import '../helpers/db_helper.dart';
 
 class DbModule {
   late final Database db;
+  HomeController homeController = Get.find();
+
   initDB() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, "eva.db");
@@ -40,8 +44,15 @@ class DbModule {
   }
 
   testDB() async {
-    var res = await db.rawQuery("select * from canteen;");
+    var res =
+        await db.rawQuery("select answer from canteen where query='time';");
     print(res);
+    var queryRes = res.first;
+    if (queryRes['answer'] != null) {
+      homeController.updateAnswer(queryRes['answer']!.toString());
+      print(homeController.answer.value);
+      await homeController.updateIsAnswerReady(true);
+    }
   }
 
   getAnswerFromDB(List<String> intents) async {

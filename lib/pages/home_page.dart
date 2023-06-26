@@ -59,17 +59,17 @@ class HomePage extends StatelessWidget {
                             decoration:
                                 const BoxDecoration(color: Colors.transparent),
                             alignment: Alignment.centerLeft,
-                            child: ShapeScreen(
-                              homeController: homeController,
-                            ),
+                            child: ShapeScreen(),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20.0, left: 50),
-                            child: Obx(() => homeController.isQueryReady.value
-                                ? Image.asset("assets/loading.gif")
-                                : Text(homeController.isRecording.value
-                                    ? "Speak Now"
-                                    : "")),
+                          Obx(
+                            () => Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 10.0, left: 50),
+                                child: homeController.isQueryReady.value
+                                    ? Image.asset("assets/loading.gif")
+                                    : Text(homeController.isRecording.value
+                                        ? "Speak Now"
+                                        : "")),
                           ),
                         ],
                       ),

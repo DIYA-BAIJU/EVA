@@ -1,8 +1,11 @@
+import 'package:first_app/controllers/controllers.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AnswerPage extends StatelessWidget {
-  const AnswerPage({Key? key}) : super(key: key);
+  AnswerPage({Key? key}) : super(key: key);
 
+  HomeController homeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,20 +65,20 @@ class AnswerPage extends StatelessWidget {
                     colors: [Color(0xff301356), Color(0xff161225)],
                   ),
                 ),
-                child: const Padding(
+                child: Padding(
                   padding:
                       EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
                   child: Column(
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 30),
-                        child: Text("Sample Question",
+                        child: Text(homeController.userPrompt.value,
                             style: TextStyle(
                               fontFamily: "Roboto Light",
                               fontSize: 31,
                             )),
                       ),
-                      Text("Sample Answer"),
+                      Text(homeController.answer.value),
                     ],
                   ),
                 ),
