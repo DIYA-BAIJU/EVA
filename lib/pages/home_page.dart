@@ -1,4 +1,5 @@
 import 'package:first_app/components/microphone.dart';
+import 'package:first_app/pages/answer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -59,7 +60,9 @@ class HomePage extends StatelessWidget {
                             decoration:
                                 const BoxDecoration(color: Colors.transparent),
                             alignment: Alignment.centerLeft,
-                            child: ShapeScreen(),
+                            child: ShapeScreen(
+                              context: context,
+                            ),
                           ),
                           Obx(
                             () => Padding(
@@ -71,6 +74,14 @@ class HomePage extends StatelessWidget {
                                         ? "Speak Now"
                                         : "")),
                           ),
+                          // FilledButton(
+                          //     onPressed: () {
+                          //       Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) => AnswerPage()));
+                          //     },
+                          //     child: Icon(Icons.refresh),)
                         ],
                       ),
                     ),
@@ -82,6 +93,11 @@ class HomePage extends StatelessWidget {
                     //       fit: BoxFit.fill,
                     //
                     //   ))
+
+                    // Text(
+                    //   "Submit",
+                    //   style: TextStyle(fontSize: 24, fontFamily: "Rubik Bold"),
+                    // ),
                   ],
                 ),
               ),

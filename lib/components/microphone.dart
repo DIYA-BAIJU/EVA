@@ -6,8 +6,9 @@ import '../pages/answer_page.dart';
 import './rec.dart';
 
 class ShapeScreen extends StatefulWidget {
-  ShapeScreen({Key? key}) : super(key: key);
+  ShapeScreen({Key? key, required this.context}) : super(key: key);
   final DbModule dbModule = DbModule();
+  final BuildContext context;
 
   @override
   State<ShapeScreen> createState() => _ShapeScreenState();
@@ -34,7 +35,7 @@ class _ShapeScreenState extends State<ShapeScreen>
   @override
   void initState() {
     super.initState();
-    rec = Rec();
+    rec = Rec(context: widget.context);
     rec.initRecorder();
     _playPauseAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));

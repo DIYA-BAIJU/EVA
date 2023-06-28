@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:first_app/components/db.dart';
 import 'package:first_app/controllers/controllers.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -11,6 +12,9 @@ import 'package:http/http.dart' as http;
 import 'bart_payload.dart';
 
 class Rec {
+  Rec({required this.context});
+
+  final BuildContext context;
   final HomeController homeController = Get.find();
   bool _isRec = false;
   late Uint8List contents;
@@ -64,11 +68,14 @@ class Rec {
           print(whisperRes.body);
           var resultBody = jsonDecode(whisperRes.body);
           var text = resultBody['text'] ?? '_';
+          // text = '_';
           print(text);
           if (text != '_') {
             homeController.updateUserPrompt(text);
+            // var bartUrl = Uri.parse(
+            //     "https://api-inference.huggingface.co/models/facebook/bart-large-mnli");
             var bartUrl = Uri.parse(
-                "https://api-inference.huggingface.co/models/facebook/bart-large-mnli");
+                "https://api-inference.huggingface.co/models/alexandrainst/scandi-nli-large");
             // var textaudio = "Where is the principal";
             var intents = '["location", "principal", "time", "student"]';
             var payloadRaw = {
@@ -109,6 +116,10 @@ class Rec {
               // dbModule.testDB();
             }
           } else {
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     SnackBar(content: Text("Whisper is being initialized")));
+            // Get.snackbar(
+            //     "Whisper is not initialized", "Please try after 4 minutes");
             print("Whisper is being initialized");
           }
         } else {
