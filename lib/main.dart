@@ -19,14 +19,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class SubPage extends StatelessWidget {
-//   const SubPage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-
-//     );
-//   }
-// }

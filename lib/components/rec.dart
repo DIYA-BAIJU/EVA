@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:first_app/components/db.dart';
 import 'package:first_app/controllers/controllers.dart';
+import 'package:first_app/helpers/helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:get/get.dart';
@@ -75,20 +76,11 @@ class Rec {
             // var bartUrl = Uri.parse(
             //     "https://api-inference.huggingface.co/models/facebook/bart-large-mnli");
             var bartUrl = Uri.parse(
-                "https://api-inference.huggingface.co/models/alexandrainst/scandi-nli-large");
-            // var textaudio = "Where is the principal";
-            var intents = '["location", "principal", "time", "student"]';
+                "https://api-inference.huggingface.co/models/MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli");
             var payloadRaw = {
               "inputs": "$text",
               "parameters": {
-                "candidate_labels": [
-                  'canteen',
-                  'gym',
-                  'hostel',
-                  'location',
-                  'time',
-                  'menu'
-                ]
+                "candidate_labels": intents,
               }
             };
             var payload = jsonEncode(payloadRaw);
@@ -103,8 +95,15 @@ class Rec {
             print(bartRes.body);
             Map<String, dynamic> bartBody = jsonDecode(bartRes.body);
             if (bartBody.containsKey('error')) {
-              print("Bart Error");
-              await dbModule.testDB();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text(
+                  "DeBERTa is being initialized",
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: blue,
+              ));
+              print("API Error: API is being initialized. Please wait");
+              // await dbModule.testDB();
               return;
             }
             var bartpayload = BartPayload.fromJson(jsonDecode(bartRes.body));
@@ -112,23 +111,23 @@ class Rec {
             print(intentRes);
             if (intentRes != null) {
               homeController.updateIntents(intentRes.sublist(0, 2));
-              dbModule.getAnswerFromDB(intentRes.sublist(0, 2));
+              await dbModule.getAnswerFromDB(intentRes.sublist(0, 2));
               // dbModule.testDB();
             }
           } else {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //     SnackBar(content: Text("Whisper is being initialized")));
-            // Get.snackbar(
-            //     "Whisper is not initialized", "Please try after 4 minutes");
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text(
+                "Whisper is being initialized. Try again in 4 Minutes.",
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: blue,
+            ));
             print("Whisper is being initialized");
           }
         } else {
           print("Whisper is unavailable");
         }
       }
-
-      // bool nowRecording = await record.isRecording();
-      // print(nowRecording);
     }
   }
 }

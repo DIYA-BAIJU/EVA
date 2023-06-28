@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -69,8 +68,20 @@ class DbModule {
       print(queryString);
       var res = await db.rawQuery(queryString);
       print(res);
-      var queryRes = res.first;
-      print("DB RES: ${queryRes["answer"] ?? 'SORRY I CANNOT ANSWER YOU'}");
+      if (res.isEmpty) {
+        homeController.updateAnswer('SORRY I CANNOT ANSWER YOU');
+        await homeController.updateIsAnswerReady(true);
+      } else {
+        var queryRes = res.first;
+        homeController.updateAnswer(
+            queryRes['answer'].toString() ?? 'SORRY I CANNOT ANSWER YOU');
+        print(homeController.answer.value);
+        await homeController.updateIsAnswerReady(true);
+        print("DB RES: ${queryRes["answer"] ?? 'SORRY I CANNOT ANSWER YOU'}");
+      }
+    } else {
+      homeController.updateAnswer('SORRY I CANNOT ANSWER YOU');
+      await homeController.updateIsAnswerReady(true);
     }
   }
 }
