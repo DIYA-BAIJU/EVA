@@ -6,9 +6,9 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <record_windows/record_windows_plugin_c_api.h>
+#include <flutter_tts/flutter_tts_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-  RecordWindowsPluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("RecordWindowsPluginCApi"));
+  FlutterTtsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("FlutterTtsPlugin"));
 }

@@ -99,6 +99,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_tts:
+    dependency: "direct main"
+    description:
+      name: flutter_tts
+      sha256: "679192274aef74c9fda70dfe8d6f431de118aee91ef1eb415bba361d78a9cd08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.7.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -136,14 +144,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      sha256: c33da08e136c3df0190bd5bbe51ae1df4a7d96e7954d1d7249fea2968a72d317
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.8.0"
   lints:
     dependency: transitive
     description:
@@ -232,14 +232,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.7"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      sha256: "67fc27ed9639506c856c840ccce7594d0bdcd91bc8d53d6e52359449a1d50602"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.11.1"
   platform:
     dependency: transitive
     description:
@@ -264,54 +256,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.4"
-  record:
-    dependency: "direct main"
-    description:
-      name: record
-      sha256: f703397f5a60d9b2b655b3acc94ba079b2d9a67dc0725bdb90ef2fee2441ebf7
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.4.4"
-  record_linux:
-    dependency: transitive
-    description:
-      name: record_linux
-      sha256: "348db92c4ec1b67b1b85d791381c8c99d7c6908de141e7c9edc20dad399b15ce"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.1"
-  record_macos:
-    dependency: transitive
-    description:
-      name: record_macos
-      sha256: d1d0199d1395f05e218207e8cacd03eb9dc9e256ddfe2cfcbbb90e8edea06057
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2"
-  record_platform_interface:
-    dependency: transitive
-    description:
-      name: record_platform_interface
-      sha256: "7a2d4ce7ac3752505157e416e4e0d666a54b1d5d8601701b7e7e5e30bec181b4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
-  record_web:
-    dependency: transitive
-    description:
-      name: record_web
-      sha256: "219ffb4ca59b4338117857db56d3ffadbde3169bcaf1136f5f4d4656f4a2372d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
-  record_windows:
-    dependency: transitive
-    description:
-      name: record_windows
-      sha256: "42d545155a26b20d74f5107648dbb3382dbbc84dc3f1adc767040359e57a1345"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -325,30 +269,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-  speech_to_text:
-    dependency: "direct main"
-    description:
-      name: speech_to_text
-      sha256: ff8fbd31d039bdbac6c7ec9f0516d37df2cbea62c45198326d3b64034e6fb920
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.1"
-  speech_to_text_macos:
-    dependency: transitive
-    description:
-      name: speech_to_text_macos
-      sha256: "6b5575e5a8346be1779838b0a482c259474965b5943668830b479147a75b5bfc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
-  speech_to_text_platform_interface:
-    dependency: transitive
-    description:
-      name: speech_to_text_platform_interface
-      sha256: "13d90215a7554b9a8c1ce47c0a1739af8eacd2cf196ca66351e54dfd2172746d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   sqflite:
     dependency: "direct main"
     description:

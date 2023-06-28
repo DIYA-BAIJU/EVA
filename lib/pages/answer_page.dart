@@ -1,14 +1,25 @@
 import 'package:first_app/controllers/controllers.dart';
 import 'package:first_app/helpers/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
+
+import '../helpers/helpers.dart';
 
 class AnswerPage extends StatelessWidget {
   AnswerPage({Key? key}) : super(key: key);
 
   final HomeController homeController = Get.find();
+  final FlutterTts ftts = FlutterTts();
   @override
   Widget build(BuildContext context) {
+    if (homeController.ansState.value == AnswerState.Error) {
+      ftts.speak("Sorry, I do not have the information to answer you");
+    } else if (homeController.ansState.value == AnswerState.Generic) {
+      ftts.speak("Here is what i found for your query");
+    } else if (homeController.ansState.value == AnswerState.Available) {
+      ftts.speak(homeController.answer.value);
+    }
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
