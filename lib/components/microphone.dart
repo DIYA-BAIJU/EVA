@@ -2,6 +2,7 @@ import 'package:first_app/components/db.dart';
 import 'package:first_app/controllers/controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../helpers/colors.dart';
 import '../pages/answer_page.dart';
 import './rec.dart';
 
@@ -226,8 +227,6 @@ class _ShapeScreenState extends State<ShapeScreen>
                   });
                 } else {
                   _playPauseAnimationController.reverse();
-                  // _topBottomAnimationController.reverse();
-                  // _leftRightAnimationController.reverse();
                   _topBottomAnimationController.reset();
                   _leftRightAnimationController.reset();
                   _topBottomAnimationController.stop();
@@ -241,7 +240,7 @@ class _ShapeScreenState extends State<ShapeScreen>
                   color: Colors.transparent,
                   shape: BoxShape.circle,
                 ),
-                child: Image(image: AssetImage("assets/mic_icon.png")),
+                child: const Image(image: AssetImage("assets/mic_icon.png")),
               ),
             ),
           ],
@@ -265,8 +264,3 @@ class _ShapeScreenState extends State<ShapeScreen>
     }
   }
 }
-
-const white = Colors.white;
-const purple = Color(0xff1D0E2F);
-const blue = Color(0xff4B5DFC);
-const pink = Color(0xffD523A3);

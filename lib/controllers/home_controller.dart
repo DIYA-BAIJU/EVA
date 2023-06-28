@@ -8,6 +8,11 @@ class HomeController extends GetxController {
   RxString answer = "".obs;
   RxBool isQueryReady = false.obs;
   RxBool isAnswerReady = false.obs;
+  late Rx<BuildContext> context;
+
+  initBuildContext(BuildContext value) {
+    context.value = value;
+  }
 
   updateRecordingStatus(bool value) {
     isRecording.value = value;

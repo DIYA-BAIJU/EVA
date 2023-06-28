@@ -7,7 +7,7 @@ import '../controllers/controllers.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
-  HomeController homeController = Get.put(HomeController());
+  final HomeController homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -74,30 +74,9 @@ class HomePage extends StatelessWidget {
                                         ? "Speak Now"
                                         : "")),
                           ),
-                          // FilledButton(
-                          //     onPressed: () {
-                          //       Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(
-                          //               builder: (context) => AnswerPage()));
-                          //     },
-                          //     child: Icon(Icons.refresh),)
                         ],
                       ),
                     ),
-                    // IconButton(
-                    //     iconSize: 200,
-                    //     onPressed: () {},
-                    //     icon: Image.asset(
-                    //       "assets/mic_icon.png",
-                    //       fit: BoxFit.fill,
-                    //
-                    //   ))
-
-                    // Text(
-                    //   "Submit",
-                    //   style: TextStyle(fontSize: 24, fontFamily: "Rubik Bold"),
-                    // ),
                   ],
                 ),
               ),

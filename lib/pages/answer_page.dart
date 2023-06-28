@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class AnswerPage extends StatelessWidget {
   AnswerPage({Key? key}) : super(key: key);
 
-  HomeController homeController = Get.find();
+  final HomeController homeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +24,7 @@ class AnswerPage extends StatelessWidget {
               flex: 11,
               child: SizedBox(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +52,7 @@ class AnswerPage extends StatelessWidget {
                             color: Logo_Answer,
                             fontFamily: "Roboto Light"),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 140,
                       ),
                     ],
@@ -76,23 +76,30 @@ class AnswerPage extends StatelessWidget {
                   ),
                 ),
                 child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      top: 20, left: 20, right: 20, bottom: 20),
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 30, bottom: 10),
+                        padding: const EdgeInsets.only(top: 30, bottom: 30),
                         child: Text(homeController.userPrompt.value,
-                            style: TextStyle(
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
                                 fontFamily: "Poppins Light",
-                                fontSize: 31,
+                                fontSize: 24,
                                 color: Colors.grey)),
                       ),
-                      Text(homeController.answer.value,
-                          style: TextStyle(
-                            fontFamily: "Poppins Light",
-                            fontSize: 18,
-                          )),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Text(
+                            homeController.answer.value,
+                            style: const TextStyle(
+                              fontFamily: "Poppins Light",
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
