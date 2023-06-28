@@ -41,6 +41,7 @@ dependencies:
   get: ^4.6.5
   sqflite: ^2.2.8+4
   flutter_tts: ^3.7.0
+  speech_to_text: ^6.2.0
 
 dev_dependencies:
   flutter_test:
