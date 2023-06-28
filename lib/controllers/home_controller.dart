@@ -1,3 +1,4 @@
+import 'package:first_app/helpers/query_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ class HomeController extends GetxController {
   RxBool isQueryReady = false.obs;
   RxBool isAnswerReady = false.obs;
   late Rx<BuildContext> context;
+  Rx<AnswerState> ansState = AnswerState.Error.obs;
 
   initBuildContext(BuildContext value) {
     context.value = value;
@@ -43,5 +45,9 @@ class HomeController extends GetxController {
   updateAnswer(String value) {
     answer.value = value;
     update();
+  }
+
+  updateAnsState(AnswerState value) {
+    ansState.value = value;
   }
 }

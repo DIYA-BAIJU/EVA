@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'package:first_app/helpers/query_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../controllers/controllers.dart';
-import '../helpers/db_helper.dart';
+import '../helpers/helpers.dart';
 
 class DbModule {
   late final Database db;
@@ -16,8 +17,8 @@ class DbModule {
     var path = join(databasesPath, "eva.db");
 
 // Check if the database exists
-    var exists = await databaseExists(path);
-    // var exists = false;
+//     var exists = await databaseExists(path);
+    var exists = false;
     if (!exists) {
 // Should happen only the first time you launch your application
       print("Creating new copy from asset");
@@ -69,6 +70,7 @@ class DbModule {
       var res = await db.rawQuery(queryString);
       print(res);
       if (res.isEmpty) {
+        homeController.updateAnsState(AnswerState.Error);
         homeController.updateAnswer('SORRY I CANNOT ANSWER YOU');
         await homeController.updateIsAnswerReady(true);
       } else {
@@ -76,10 +78,16 @@ class DbModule {
         homeController.updateAnswer(
             queryRes['answer'].toString() ?? 'SORRY I CANNOT ANSWER YOU');
         print(homeController.answer.value);
+        if (homeController.answer.value.length < 100) {
+          homeController.updateAnsState(AnswerState.Available);
+        } else {
+          homeController.updateAnsState(AnswerState.Generic);
+        }
         await homeController.updateIsAnswerReady(true);
         print("DB RES: ${queryRes["answer"] ?? 'SORRY I CANNOT ANSWER YOU'}");
       }
     } else {
+      homeController.updateAnsState(AnswerState.Error);
       homeController.updateAnswer('SORRY I CANNOT ANSWER YOU');
       await homeController.updateIsAnswerReady(true);
     }

@@ -259,6 +259,7 @@ class _ShapeScreenState extends State<ShapeScreen>
     print(homeController.isAnswerReady.value);
     if (homeController.isAnswerReady.value == true) {
       print("Answer is ready");
+
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AnswerPage()));
     }
