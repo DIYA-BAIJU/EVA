@@ -1,5 +1,6 @@
 import 'package:first_app/controllers/controllers.dart';
 import 'package:first_app/helpers/colors.dart';
+import 'package:first_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ class AnswerPage extends StatelessWidget {
 
   final HomeController homeController = Get.find();
   final FlutterTts ftts = FlutterTts();
+
   @override
   Widget build(BuildContext context) {
     if (homeController.ansState.value == AnswerState.Error) {
@@ -64,7 +66,27 @@ class AnswerPage extends StatelessWidget {
                             fontFamily: "Roboto Light"),
                       ),
                       const SizedBox(
-                        height: 140,
+                        height: 40,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          homeController.updateMicTurnedOn(true);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Color(0x3d301356),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Image.asset("assets/mic_small.png"),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
                       ),
                     ],
                   ),
@@ -92,7 +114,7 @@ class AnswerPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 30, bottom: 30),
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
                         child: Text(homeController.userPrompt.value,
                             textAlign: TextAlign.center,
                             style: const TextStyle(

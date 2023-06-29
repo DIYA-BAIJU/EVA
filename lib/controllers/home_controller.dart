@@ -1,6 +1,7 @@
 import 'package:first_app/helpers/query_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class HomeController extends GetxController {
   RxBool isRecording = false.obs;
@@ -11,6 +12,18 @@ class HomeController extends GetxController {
   RxBool isAnswerReady = false.obs;
   late Rx<BuildContext> context;
   Rx<AnswerState> ansState = AnswerState.Error.obs;
+  RxBool micTurnedOn = false.obs;
+  Rx<SpeechToText> speech = SpeechToText().obs;
+  RxBool isSTTinit = false.obs;
+  RxBool isAvailable = false.obs;
+
+  updateIsAvailable(bool value) {
+    isAvailable.value = value;
+  }
+
+  updateIsSTTinit(bool value) {
+    isSTTinit.value = value;
+  }
 
   initBuildContext(BuildContext value) {
     context.value = value;
@@ -27,8 +40,9 @@ class HomeController extends GetxController {
     update();
   }
 
-  updateUserPrompt(String value) {
+  Future<void> updateUserPrompt(String value) async {
     userPrompt.value = value;
+    print(userPrompt.value);
     update();
   }
 
@@ -43,11 +57,20 @@ class HomeController extends GetxController {
   }
 
   updateAnswer(String value) {
-    answer.value = value;
+    answer.value += value;
+    update();
+  }
+
+  resetAnswer() {
+    answer.value = "";
     update();
   }
 
   updateAnsState(AnswerState value) {
     ansState.value = value;
+  }
+
+  updateMicTurnedOn(bool value) {
+    micTurnedOn.value = value;
   }
 }

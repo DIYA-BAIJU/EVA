@@ -14,22 +14,32 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'bart_payload.dart';
 
 class Rec {
-  Rec({required this.context});
+  Rec({required this.context}) {
+    initRecorder().then((value) {
+      print("Initialized");
+    });
+  }
 
   final BuildContext context;
   final HomeController homeController = Get.find();
   SpeechToText speech = SpeechToText();
+  final DbModule dbModule = DbModule();
 
   bool _isRec = false;
   late Uint8List contents;
-  late final FlutterAudioRecorder2 recorder;
-  late bool available;
-  final DbModule dbModule = DbModule();
+  // late final FlutterAudioRecorder2 recorder;
 
   //Todo: add init function
   initRecorder() async {
-    available =
-        await speech.initialize(onStatus: (status) {}, onError: (result) {});
+    if (!homeController.isSTTinit.value) {
+      var available = await speech.initialize(
+        onStatus: (status) {},
+        onError: (result) {},
+      );
+      print("STT Initializing");
+      homeController.updateIsSTTinit(true);
+      homeController.updateIsAvailable(available);
+    }
 
     // Directory tempDir = await getTemporaryDirectory();
     // String tempPath = tempDir.path;
@@ -41,16 +51,22 @@ class Rec {
     dbModule.initDB();
   }
 
+  disposeRecorder() {}
+
   recordMic() async {
     //then async await
     _isRec = !(_isRec);
     print("Staring record");
     if (_isRec) {
+      homeController.resetAnswer();
       print("Recording");
-      if (available) {
-        speech.listen(onResult: (result) {
-          homeController.updateUserPrompt(result.recognizedWords);
-        });
+      if (homeController.isAvailable.value) {
+        await speech.listen(
+            partialResults: false,
+            listenMode: ListenMode.dictation,
+            onResult: (result) async {
+              await homeController.updateUserPrompt(result.recognizedWords);
+            });
       } else {
         print("speech recognition not available.");
         ScaffoldMessenger.of(context).showSnackBar(
@@ -65,7 +81,9 @@ class Rec {
     }
     if (!_isRec) {
       print("stopping rec..");
-      speech.stop();
+      await speech.stop();
+      await Future.delayed(Duration(seconds: 3));
+      print("stopped rec..");
       print(homeController.userPrompt.value);
       if (homeController.userPrompt.value.isNotEmpty) {
         // var bartUrl = Uri.parse(
@@ -91,7 +109,7 @@ class Rec {
         if (bartBody.containsKey('error')) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
-              "DeBERTa is being initialized",
+              "DeBERTa is being initialized. Try again in 20 secs",
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: blue,
@@ -111,12 +129,12 @@ class Rec {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
-            "Whisper is being initialized. Try again in 4 Minutes.",
+            "Please try again.",
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: blue,
         ));
-        print("Whisper is being initialized");
+        print("Uninitialized");
       }
     }
   }
