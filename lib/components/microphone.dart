@@ -37,7 +37,7 @@ class _ShapeScreenState extends State<ShapeScreen>
   void initState() {
     super.initState();
     rec = Rec(context: widget.context);
-    rec.initRecorder();
+    // rec.initRecorder();
     _playPauseAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
 
@@ -69,6 +69,9 @@ class _ShapeScreenState extends State<ShapeScreen>
         _topBottomAnimationController.forward();
       }
     });
+    if (homeController.micTurnedOn.value) {
+      micButtonLogic();
+    }
   }
 
   @override
@@ -215,23 +218,8 @@ class _ShapeScreenState extends State<ShapeScreen>
             // play button
             GestureDetector(
               onTap: () {
-                playing = !playing;
-                homeController.updateRecordingStatus(playing);
-                homeController.updateIsQueryReady(true);
-                startReording();
-                if (playing) {
-                  _playPauseAnimationController.forward();
-                  _topBottomAnimationController.forward();
-                  Future.delayed(const Duration(milliseconds: 500), () {
-                    _leftRightAnimationController.forward();
-                  });
-                } else {
-                  _playPauseAnimationController.reverse();
-                  _topBottomAnimationController.reset();
-                  _leftRightAnimationController.reset();
-                  _topBottomAnimationController.stop();
-                  _leftRightAnimationController.stop();
-                }
+                micButtonLogic();
+                // homeController.updateMicTurnedOn(false);
               },
               child: Container(
                 width: width,
@@ -249,6 +237,26 @@ class _ShapeScreenState extends State<ShapeScreen>
     );
   }
 
+  void micButtonLogic() {
+    playing = !playing;
+    homeController.updateRecordingStatus(playing);
+    homeController.updateIsQueryReady(true);
+    startReording();
+    if (playing) {
+      _playPauseAnimationController.forward();
+      _topBottomAnimationController.forward();
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _leftRightAnimationController.forward();
+      });
+    } else {
+      _playPauseAnimationController.reverse();
+      _topBottomAnimationController.reset();
+      _leftRightAnimationController.reset();
+      _topBottomAnimationController.stop();
+      _leftRightAnimationController.stop();
+    }
+  }
+
   void startReording() async {
     print("here");
     await rec.recordMic();
@@ -260,7 +268,7 @@ class _ShapeScreenState extends State<ShapeScreen>
     if (homeController.isAnswerReady.value == true) {
       print("Answer is ready");
 
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => AnswerPage()));
     }
   }

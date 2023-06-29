@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
                                 child: homeController.isQueryReady.value
                                     ? Image.asset("assets/loading.gif")
                                     : Text(homeController.isRecording.value
-                                        ? "Speak Now"
+                                        ? homeController.answer.value
                                         : "")),
                           ),
                         ],
