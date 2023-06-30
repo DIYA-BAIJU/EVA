@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:first_app/helpers/query_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -56,6 +57,10 @@ class DbModule {
   }
 
   getAnswerFromDB(List<String> intents) async {
+    if (intents.contains('general conversation')) {
+      await getSmartReply(intents);
+      return;
+    }
     var queryString = "";
     if (tables.contains(intents[0]) && queries.contains(intents[1])) {
       queryString =
@@ -91,5 +96,18 @@ class DbModule {
       homeController.updateAnswer('SORRY I CANNOT ANSWER YOU');
       await homeController.updateIsAnswerReady(true);
     }
+  }
+
+  Future<void> getSmartReply(List<String> intents) async {
+    final smartReply = SmartReply();
+    smartReply.addMessageToConversationFromRemoteUser(
+        homeController.userPrompt.value,
+        DateTime.now().millisecondsSinceEpoch,
+        "1");
+    final response = await smartReply.suggestReplies();
+    print(response.suggestions);
+    homeController.updateAnswer(response.suggestions[0]);
+    homeController.updateAnsState(AnswerState.Available);
+    await homeController.updateIsAnswerReady(true);
   }
 }

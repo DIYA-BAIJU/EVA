@@ -1,6 +1,6 @@
 import 'dart:core';
 
-List<String> tables = ['canteen', 'gym', 'hostel'];
+List<String> tables = ['canteen', 'gym', 'hostel', 'general conversation'];
 List<String> queries = [
   'location',
   'time',

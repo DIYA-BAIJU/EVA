@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:first_app/components/db.dart';
 import 'package:first_app/controllers/controllers.dart';
 import 'package:first_app/helpers/helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_recorder2/flutter_audio_recorder2.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -27,6 +24,7 @@ class Rec {
 
   bool _isRec = false;
   late Uint8List contents;
+
   // late final FlutterAudioRecorder2 recorder;
 
   //Todo: add init function
@@ -109,14 +107,35 @@ class Rec {
         if (bartBody.containsKey('error')) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
-              "DeBERTa is being initialized. Try again in 20 secs",
+              "DeBERTa is being initialized. Try again Please wait 20 secs",
               style: TextStyle(color: Colors.white),
             ),
             backgroundColor: blue,
           ));
           print("API Error: API is being initialized. Please wait");
+
+          await Future.delayed(Duration(seconds: 25));
+          bartRes = await http.post(bartUrl,
+              headers: {
+                "Authorization": "Bearer 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"
+              },
+              body: payload);
+
+          print(bartRes.body);
+          bartBody = jsonDecode(bartRes.body);
+
+          if (bartBody.containsKey('error')) {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text(
+                "DeBERTa is unavailable.",
+                style: TextStyle(color: Colors.white),
+              ),
+              backgroundColor: blue,
+            ));
+            print("API Error: API is unavailable.");
+            return;
+          }
           // await dbModule.testDB();
-          return;
         }
         var bartpayload = BartPayload.fromJson(jsonDecode(bartRes.body));
         var intentRes = bartpayload.labels;

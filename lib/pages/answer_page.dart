@@ -1,5 +1,4 @@
 import 'package:first_app/controllers/controllers.dart';
-import 'package:first_app/helpers/colors.dart';
 import 'package:first_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
