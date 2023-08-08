@@ -6,6 +6,8 @@ List<String> queries = [
   'time',
   'menu',
   'mens hostel warden',
-  'mens hostel count'
+  'mens hostel inmates',
+  'seat availability',
+  'fees',
 ];
 List<String> intents = tables + queries;

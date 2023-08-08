@@ -239,8 +239,10 @@ class _ShapeScreenState extends State<ShapeScreen>
 
   void micButtonLogic() {
     playing = !playing;
+    //mic working
     homeController.updateRecordingStatus(playing);
     homeController.updateIsQueryReady(true);
+    //ends here
     startReording();
     if (playing) {
       _playPauseAnimationController.forward();

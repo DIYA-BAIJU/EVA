@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:first_app/helpers/query_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:google_mlkit_smart_reply/google_mlkit_smart_reply.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -93,21 +95,44 @@ class DbModule {
       }
     } else {
       homeController.updateAnsState(AnswerState.Error);
-      homeController.updateAnswer('SORRY I CANNOT ANSWER YOU');
+      homeController.updateAnswer('Sorry i cannot answer you');
       await homeController.updateIsAnswerReady(true);
     }
   }
 
   Future<void> getSmartReply(List<String> intents) async {
-    final smartReply = SmartReply();
-    smartReply.addMessageToConversationFromRemoteUser(
-        homeController.userPrompt.value,
-        DateTime.now().millisecondsSinceEpoch,
-        "1");
-    final response = await smartReply.suggestReplies();
-    print(response.suggestions);
-    homeController.updateAnswer(response.suggestions[0]);
-    homeController.updateAnsState(AnswerState.Available);
-    await homeController.updateIsAnswerReady(true);
+    // final smartReply = SmartReply();
+    // smartReply.addMessageToConversationFromRemoteUser(
+    //     homeController.userPrompt.value,
+    //     DateTime.now().millisecondsSinceEpoch,
+    //     "1");
+    // final response = await smartReply.suggestReplies();
+    // print(response.suggestions);
+    var payloadRaw = {
+      "inputs": {
+        "past_user_inputs": [],
+        "generated_responses": [],
+        "text": homeController.userPrompt.value
+      }
+    };
+    var payload = jsonEncode(payloadRaw);
+    var url = Uri.parse(
+        "https://api-inference.huggingface.co/models/microsoft/DialoGPT-large");
+    var response = await http.post(url,
+        headers: {
+          "Authorization": "Bearer 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"
+        },
+        body: payload);
+
+    Map<String, dynamic> DialoRes = jsonDecode(response.body);
+    if (DialoRes.containsKey('generated_text')) {
+      homeController.updateAnswer(DialoRes['generated_text']);
+      homeController.updateAnsState(AnswerState.Available);
+      await homeController.updateIsAnswerReady(true);
+    } else {
+      homeController.updateAnsState(AnswerState.Error);
+      homeController.updateAnswer('Sorry I cannot answer you');
+      await homeController.updateIsAnswerReady(true);
+    }
   }
 }

@@ -31,6 +31,7 @@ class Rec {
   initRecorder() async {
     if (!homeController.isSTTinit.value) {
       var available = await speech.initialize(
+        //initializing STT
         onStatus: (status) {},
         onError: (result) {},
       );
@@ -39,22 +40,13 @@ class Rec {
       homeController.updateIsAvailable(available);
     }
 
-    // Directory tempDir = await getTemporaryDirectory();
-    // String tempPath = tempDir.path;
-    // if (File("$tempPath/myfile.aac").existsSync()) {
-    //   File("$tempPath/myfile.aac").deleteSync();
-    // }
-    // recorder = FlutterAudioRecorder2("$tempPath/myfile.aac",
-    //     audioFormat: AudioFormat.AAC); // .wav .aac .m4a
     dbModule.initDB();
   }
-
-  disposeRecorder() {}
 
   recordMic() async {
     //then async await
     _isRec = !(_isRec);
-    print("Staring record");
+    print("Starting record");
     if (_isRec) {
       homeController.resetAnswer();
       print("Recording");
@@ -82,6 +74,7 @@ class Rec {
       await speech.stop();
       await Future.delayed(Duration(seconds: 3));
       print("stopped rec..");
+
       print(homeController.userPrompt.value);
       if (homeController.userPrompt.value.isNotEmpty) {
         // var bartUrl = Uri.parse(
