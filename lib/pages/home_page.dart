@@ -1,5 +1,4 @@
 import 'package:first_app/components/microphone.dart';
-import 'package:first_app/pages/answer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -71,7 +70,7 @@ class HomePage extends StatelessWidget {
                                 child: homeController.isQueryReady.value
                                     ? Image.asset("assets/loading.gif")
                                     : Text(homeController.isRecording.value
-                                        ? homeController.answer.value
+                                        ? "Speak Now"
                                         : "")),
                           ),
                         ],

@@ -37,11 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   path_provider: ^2.0.15
   http: ^1.0.0
-  flutter_audio_recorder2: ^0.0.2
   get: ^4.6.5
   sqflite: ^2.2.8+4
   flutter_tts: ^3.7.0
   speech_to_text: ^6.2.0
+  google_mlkit_smart_reply: ^0.7.0
 
 dev_dependencies:
   flutter_test:
