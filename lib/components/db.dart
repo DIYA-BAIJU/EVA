@@ -101,13 +101,7 @@ class DbModule {
   }
 
   Future<void> getSmartReply(List<String> intents) async {
-    // final smartReply = SmartReply();
-    // smartReply.addMessageToConversationFromRemoteUser(
-    //     homeController.userPrompt.value,
-    //     DateTime.now().millisecondsSinceEpoch,
-    //     "1");
-    // final response = await smartReply.suggestReplies();
-    // print(response.suggestions);
+    //p
     var payloadRaw = {
       "inputs": {
         "past_user_inputs": [],
